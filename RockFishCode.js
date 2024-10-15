@@ -1,4 +1,4 @@
-import { Chess } from 'chess.js-master/src/chess.ts'
+import { Chess } from 'chess.js-master/src/chess.js'
 import { ChessBoard } from 'chessboardjs-1.0.0/js/chessboard-1.0.0.js'
 const chess = new Chess()
 var config = {
