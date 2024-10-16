@@ -1,5 +1,5 @@
-import { Chess } from '/chess.js-master'
 import { ChessBoard } from '/chessboardjs-1.0.0'
+import { Chess } from '/chess.js-master'
 const chess = new Chess()
 var config = {
   position: 'start',
