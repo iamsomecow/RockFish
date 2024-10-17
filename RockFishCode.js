@@ -1,4 +1,4 @@
-var chess = new Chess()
+
 
 var config = {
   position: 'start',
@@ -8,10 +8,10 @@ var config = {
 
 
 var board1 = ChessBoard('board1', config);
-while (!chess.isGameOver()) {
-  const moves = chess.moves()
+while (!Chess.isGameOver()) {
+  const moves = Chess.moves()
   const move = moves[Math.floor(Math.random() * moves.length)]
-  chess.move(move)
+  Chess.move(move)
   board1.makeMove(move) 
 }
 document.getElementById("Chess").innerHTML = chess.pgn()
