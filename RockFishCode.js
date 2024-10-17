@@ -1,5 +1,4 @@
-/*import { ChessBoard } from '/chessboardjs-1.0.0'
-import { Chess } from '/chess.js-master'
+
 const chess = new Chess()
 var config = {
   position: 'start',
@@ -16,12 +15,4 @@ while (!chess.isGameOver()) {
   board1.makeMove(move) 
 }
 document.getElementById("Chess").innerHTML = chess.pgn()
-*/
-var config = {
-  position: 'start',
-  draggable: true,
-  legalMoveOnly: true
-}
 
-
-var board1 = ChessBoard('board1', config);
