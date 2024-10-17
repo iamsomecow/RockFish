@@ -4,7 +4,7 @@ var config = {
   draggable: true,
   legalMoveOnly: true
 }
-var board1 = ChessBoard('board1', config);
+var board1 = ChessBoard('Board1', config);
 while (!chess.isGameOver()) {
   const moves = chess.moves()
   const move = moves[Math.floor(Math.random() * moves.length)]
