@@ -1,4 +1,4 @@
-var chess = new Chess
+var chess = new Chess()
 var config = {
   position: 'start',
   draggable: true,
