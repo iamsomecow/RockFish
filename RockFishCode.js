@@ -1,10 +1,12 @@
 var chess = new Chess()
+var board = null
+var $board = $('#Board1')
 var config = {
   position: 'start',
   draggable: true,
   legalMoveOnly: true
 }
-var board1 = ChessBoard('Board1', config);
+board = ChessBoard('Board1', config);
 while (!chess.isGameOver()) {
   const moves = chess.moves()
   const move = moves[Math.floor(Math.random() * moves.length)]
