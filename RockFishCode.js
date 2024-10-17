@@ -1,12 +1,8 @@
-
-
 var config = {
   position: 'start',
   draggable: true,
   legalMoveOnly: true
 }
-
-
 var board1 = ChessBoard('board1', config);
 while (!Chess.isGameOver()) {
   const moves = Chess.moves()
