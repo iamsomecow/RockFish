@@ -14,4 +14,4 @@ while (!chess.game_over()) {
   board.makeMove(move) 
 }
 document.getElementById("Chess").innerHTML = chess.pgn()
-
+//saa.sdas() 
