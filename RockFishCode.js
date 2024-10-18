@@ -11,7 +11,7 @@ while (!chess.game_over()) {
   const moves = chess.moves()
   const move = moves[Math.floor(Math.random() * moves.length)]
   chess.move(move)
-  board1.makeMove(move) 
+  board.makeMove(move) 
 }
 document.getElementById("Chess").innerHTML = chess.pgn()
 //saa.sdas() 
