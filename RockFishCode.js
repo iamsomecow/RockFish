@@ -7,7 +7,7 @@ var config = {
   legalMoveOnly: true
 }
 board = ChessBoard('Board1', config);
-while (!chess.isGameOver()) {
+while (!chess.game_over()) {
   const moves = chess.moves()
   const move = moves[Math.floor(Math.random() * moves.length)]
   chess.move(move)
