@@ -22,7 +22,7 @@ function onDrop(source, target, piece, newPos, oldPos, orientation) {
   if (result === null) return 'snapback';
 
   // Update the board position in chessboard.js
-  board.position(game.fen());
+  board.position(chess.fen());
   document.getElementById("Chess").innerHTML = chess.pgn()
 }
 
