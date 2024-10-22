@@ -32,9 +32,11 @@ function ResetButtonClick()
 {
   chess.reset()
   board.start()
+  document.getElementById("Chess").innerHTML = chess.pgn()
 }
 function UndoButtonClick()
 {
   chess.undo()
   board.position(chess.fen());
+  document.getElementById("Chess").innerHTML = chess.pgn()
 }
