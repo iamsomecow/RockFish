@@ -4,15 +4,26 @@ var $board = $('#Board1')
 var config = {
   position: 'start',
   draggable: true,
-  legalMoveOnly: true
+  dropOffBoard: 'snapback',
+  onDrop: onDrop
 }
 board = ChessBoard('Board1', config);
-while (!chess.game_over()) {
-  const moves = chess.moves()
-  const move = moves[Math.floor(Math.random() * moves.length)]
-  chess.move(move)
-  board.move(move) 
+function onDrop(source, target, piece, newPos, oldPos, orientation) {
+  var move = {
+    from: source,
+    to: target,
+    promotion: 'q' // promote to a queen for example
+  };
+
+  // Attempt to make the move in chess.js
+  var result = game.move(move);
+
+  // If the move is illegal, snap the piece back to its original square
+  if (result === null) return 'snapback';
+
+  // Update the board position in chessboard.js
+  board.position(game.fen());
+  document.getElementById("Chess").innerHTML = chess.pgn()
 }
-document.getElementById("Chess").innerHTML = chess.pgn()
-board.position(chess.fen())
+
 //saa.sdas() 
