@@ -28,5 +28,9 @@ function onDrop(source, target, piece, newPos, oldPos, orientation) {
     alert('Game Over');
   }
 }
-
+function ResetButtonClick()
+{
+  chess.reset()
+  board.start()
+}
 //saa.sdas() 
