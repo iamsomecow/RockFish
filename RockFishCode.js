@@ -16,7 +16,7 @@ function onDrop(source, target, piece, newPos, oldPos, orientation) {
   };
 
   // Attempt to make the move in chess.js
-  var result = game.move(move);
+  var result = chess.move(move);
 
   // If the move is illegal, snap the piece back to its original square
   if (result === null) return 'snapback';
