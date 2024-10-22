@@ -16,13 +16,18 @@
     <style>
         h1 {text-align: center;}
         p {text-align: center;}
-        button {text-align: center;}
+        #buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        button {width: 150px;}
     </style>
     <h1>RockFish chess engine</h1>
     <p>InDev</p>
-    <div id= "buttons" style="margin: 0 auto;">
-        <button type="button", style="width: 150px;", onclick="ResetButtonClick()">Reset Board</button>
-        <button type="button", style="width: 150px;", onclick="UndoButtonClick()">Undo Move</button>
+    <div id= "buttons">
+        <button type="button", onclick="ResetButtonClick()">Reset Board</button>
+        <button type="button", onclick="UndoButtonClick()">Undo Move</button>
     </div>
     <div id="Board1", style="width: 300px;margin: 0 auto;"></div>
     <p id = "Chess"></p>
