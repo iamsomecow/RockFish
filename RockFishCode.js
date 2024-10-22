@@ -24,6 +24,9 @@ function onDrop(source, target, piece, newPos, oldPos, orientation) {
   // Update the board position in chessboard.js
   board.position(chess.fen());
   document.getElementById("Chess").innerHTML = chess.pgn()
+  if (chess.game_over()) {
+    alert('Game Over');
+  }
 }
 
 //saa.sdas() 
