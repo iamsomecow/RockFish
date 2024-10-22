@@ -33,4 +33,8 @@ function ResetButtonClick()
   chess.reset()
   board.start()
 }
-//saa.sdas() 
+function UndoButtonClick()
+{
+  chess.undo()
+  board.position(chess.fen());
+}
