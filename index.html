@@ -16,14 +16,17 @@
 <style>
 h1 {text-align: center;}
 p {text-align: center;}
-div {text-align: center;}
-button {text-align: center;}
+center {
+width: 50%;
+margin: 0 auto;
+background-color: lightgrey;
+}
 </style>
 <h1>RockFish chess engine</h1>
 <p>InDev</p>
-<button type="button", style="width: 150px;", onclick="ResetButtonClick()">Reset Board</button>
-<button type="button", style="width: 150px;", onclick="UndoButtonClick()">Undo Move</button>
-<div id="Board1", style="width: 300px;"></div>
+<button type="button",class ="center", style="width: 150px;", onclick="ResetButtonClick()">Reset Board</button>
+<button type="button",class ="center" style="width: 150px;", onclick="UndoButtonClick()">Undo Move</button>
+<div id="Board1",class ="center", style="width: 300px;"></div>
 <p id = "Chess"></p>
 <script src="RockFishCode.js"></script>
 </body>
