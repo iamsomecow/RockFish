@@ -83,7 +83,7 @@ var pst_b = {
   k_e: pst_w['k_e'].slice().reverse(),
 };
 var pstSelf = { w: pst_w, b: pst_b };
-function BestMove(var moves) {
+function BestMove(moves) {
   var BM;
   var BMSum = 0; 
   moves.forEach((move) {
