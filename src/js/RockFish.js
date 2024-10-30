@@ -84,6 +84,7 @@ var pst_b = {
 };
 var pstSelf = { w: pst_w, b: pst_b };
 function BestMove(moves) {
+  console.log(moves)
   var BM;
   var BMSum = 0; 
   moves.forEach((move) => {
