@@ -27,7 +27,7 @@ function onDrop(source, target, piece, newPos, oldPos, orientation) {
   if (chess.game_over()) {
     alert('Game Over');
   } else {
-    var Bs = BestMove(chess.moves())
+    var Bs = BestMove(chess.moves(), chess, 3)
     var r = chess.move(Bs);
     board.position(chess.fen());
   }
