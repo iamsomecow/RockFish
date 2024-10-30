@@ -84,6 +84,20 @@ var pst_b = {
 };
 var pstSelf = { w: pst_w, b: pst_b };
 function BestMove(var moves) {
+  var BM;
+  var BMSum = 0; 
+  moves.forEach((move) {
+    var moveSum = Efunk(move)
+    if (moveSum > BMSum)
+    {
+      BM = move;
+      BMSum = moveSum;
+    }    
+  })
+  return BM;
+}
+function Efunk(move)
+var Sum = 0;
   var from = [
     8 - parseInt(move.from[1]),
     move.from.charCodeAt(0) - 'a'.charCodeAt(0),
@@ -92,7 +106,8 @@ function BestMove(var moves) {
     8 - parseInt(move.to[1]),
     move.to.charCodeAt(0) - 'a'.charCodeAt(0),
   ];
-prevSum += pstSelf[move.color][move.piece][from[0]][from[1]];
-prevSum -= pstSelf[move.color][move.piece][to[0]][to[1]];
+Sum += pstSelf[move.color][move.piece][from[0]][from[1]];
+Sum -= pstSelf[move.color][move.piece][to[0]][to[1]];
+return Sum
 }
 
