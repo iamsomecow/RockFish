@@ -86,7 +86,7 @@ var pstSelf = { w: pst_w, b: pst_b };
 function BestMove(moves) {
   var BM;
   var BMSum = 0; 
-  moves.forEach((move) {
+  moves.forEach((move) => {
     var moveSum = Efunk(move)
     if (moveSum > BMSum)
     {
