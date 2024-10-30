@@ -96,7 +96,7 @@ function BestMove(moves) {
   })
   return BM;
 }
-function Efunk(move)
+function Efunk(move) {
 var Sum = 0;
   var from = [
     8 - parseInt(move.from[1]),
