@@ -26,6 +26,9 @@ function onDrop(source, target, piece, newPos, oldPos, orientation) {
   document.getElementById("Chess").innerHTML = chess.pgn()
   if (chess.game_over()) {
     alert('Game Over');
+  } else {
+    var Bs = BestMove(chess.move)
+    var r = chess.move(move);
   }
 }
 function ResetButtonClick()
