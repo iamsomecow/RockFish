@@ -28,7 +28,7 @@ function onDrop(source, target, piece, newPos, oldPos, orientation) {
     alert('Game Over');
   } else {
     var Bs = BestMove(chess.move)
-    var r = chess.move(move);
+    var r = chess.move(Bs);
   }
 }
 function ResetButtonClick()
