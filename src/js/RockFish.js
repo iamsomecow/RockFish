@@ -83,12 +83,12 @@ var pst_b = {
   k_e: pst_w['k_e'].slice().reverse(),
 };
 var pstSelf = { w: pst_w, b: pst_b };
-function BestMove(moves) {
+function BestMove(moves, game, depth) {
   console.log(moves)
   var BM;
   var BMSum = 0; 
   moves.forEach((move) => {
-    var moveSum = Efunk(move)
+    var moveSum = Efunk(move, game, depth)
     if (moveSum > BMSum)
     {
       BM = move;
@@ -97,8 +97,9 @@ function BestMove(moves) {
   })
   return BM;
 }
-function Efunk(move) {
+function Efunk(move, game, depth) {
 var Sum = 0;
+  
   var from = [
     8 - parseInt(move.from[1]),
     move.from.charCodeAt(0) - 'a'.charCodeAt(0),
@@ -109,6 +110,15 @@ var Sum = 0;
   ];
 Sum += pstSelf[move.color][move.piece][from[0]][from[1]];
 Sum -= pstSelf[move.color][move.piece][to[0]][to[1]];
+
+
+
+  if (depth !== 0)
+  {
+    game.move(move)  
+    var newMoves = game.moves()
+    Sum -= BestMove(newMoves, game, depth - 1)
+  }
 return Sum
 }
 
