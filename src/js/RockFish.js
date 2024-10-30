@@ -64,8 +64,8 @@ var pst_w = {
   // Endgame King Table
   k_e: [
     [-50, -40, -30, -20, -20, -30, -40, -50],
-    [-30, -20, -10, 0, 0, -10, -20, -30],
-    [-30, -10, 20, 30, 30, 20, -10, -30],
+    [-30, -20, -10,  0,   0,  -10, -20, -30],
+    [-30, -10,  20,  30, 30, 20, -10, -30],
     [-30, -10, 30, 40, 40, 30, -10, -30],
     [-30, -10, 30, 40, 40, 30, -10, -30],
     [-30, -10, 20, 30, 30, 20, -10, -30],
@@ -82,3 +82,17 @@ var pst_b = {
   k: pst_w['k'].slice().reverse(),
   k_e: pst_w['k_e'].slice().reverse(),
 };
+var pstSelf = { w: pst_w, b: pst_b };
+function BestMove(var moves) {
+  var from = [
+    8 - parseInt(move.from[1]),
+    move.from.charCodeAt(0) - 'a'.charCodeAt(0),
+  ];
+  var to = [
+    8 - parseInt(move.to[1]),
+    move.to.charCodeAt(0) - 'a'.charCodeAt(0),
+  ];
+prevSum += pstSelf[move.color][move.piece][from[0]][from[1]];
+prevSum -= pstSelf[move.color][move.piece][to[0]][to[1]];
+}
+
