@@ -99,6 +99,7 @@ function BestMove(moves, game, depth) {
 }
 function Efunk(move, game, depth) {
 var Sum = 0;
+  console.log(move)
   
   var from = [
     8 - parseInt(move.from[1]),
