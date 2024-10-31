@@ -90,7 +90,7 @@ function BestMove(moves, game, depth) {
   moves.forEach((move) => {
     console.log(move)
     var moveSum = Efunk(game.ugly_move(move), game, depth)
-    console.log(game.board())
+    game.undo() 
     if (moveSum > BMSum)
     {
       BM = move;
