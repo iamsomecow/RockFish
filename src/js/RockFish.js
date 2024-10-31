@@ -83,7 +83,7 @@ var pst_b = {
   k_e: pst_w['k_e'].slice().reverse(),
 };
 var pstSelf = { w: pst_w, b: pst_b };
-function BestMove(moves, game, depth) {
+function BestMove(moves, game, depth, returnSum = false) {
   console.log(moves)
   var BM;
   var BMSum = 0; 
@@ -97,7 +97,12 @@ function BestMove(moves, game, depth) {
       BMSum = moveSum;
     }    
   })
-  return BM;
+  if(returnSum = false)
+  {
+    return BM;
+  } else {
+    return BMSum;
+  }
 }
 function Efunk(move, game, depth) {
 var Sum = 0;
