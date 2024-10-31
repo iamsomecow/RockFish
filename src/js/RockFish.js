@@ -125,7 +125,7 @@ Sum -= pstSelf[move.color][move.piece][to[0]][to[1]];
   {
     game.move(move)  
     var newMoves = game.ugly_moves({verbose: true})
-    Sum -= BestMove(newMoves, game, depth - 1)
+    Sum -= BestMove(newMoves, game, depth - 1, true)
   }
 console.log(Sum)
 return Sum
