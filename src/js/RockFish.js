@@ -121,6 +121,7 @@ Sum -= pstSelf[move.color][move.piece][to[0]][to[1]];
     var newMoves = game.moves()
     Sum -= BestMove(newMoves, game, depth - 1)
   }
+console.log(Sum)
 return Sum
 }
 
