@@ -85,7 +85,7 @@ var pst_b = {
 var pstSelf = { w: pst_w, b: pst_b };
 function BestMove(moves, game, depth, returnSum = false) {
   var BM;
-  var BMSum = 0; 
+  var BMSum = -Infinity; 
   moves.forEach((move) => {
     var moveSum = Efunk(game.ugly_move(move), game, depth)
     game.undo() 
