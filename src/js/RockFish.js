@@ -97,12 +97,15 @@ function BestMove(moves, game, depth, returnSum = false) {
   })
   if(returnSum === false)
   {
+    console.log(returnSum)
+    console.log(BM)
     return BM;
   } else {
+    console.log(returnSum)
+    console.log(BM)
     return BMSum;
   }
-  console.log(returnSum)
-  console.log(BM)
+  
 }
 function Efunk(move, game, depth) {
 var Sum = 0;
