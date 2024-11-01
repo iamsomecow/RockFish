@@ -97,7 +97,7 @@ function BestMove(moves, game, depth, returnSum = false) {
       BMSum = moveSum;
     }    
   })
-  if(returnSum = false)
+  if(returnSum === false)
   {
     return BM;
   } else {
