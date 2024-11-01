@@ -84,7 +84,6 @@ var pst_b = {
 };
 var pstSelf = { w: pst_w, b: pst_b };
 function BestMove(moves, game, depth, returnSum = false) {
-  console.log(moves)
   var BM;
   var BMSum = 0; 
   moves.forEach((move) => {
@@ -102,6 +101,8 @@ function BestMove(moves, game, depth, returnSum = false) {
   } else {
     return BMSum;
   }
+  console.log(returnSum)
+  console.log(BM)
 }
 function Efunk(move, game, depth) {
 var Sum = 0;
