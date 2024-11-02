@@ -29,7 +29,7 @@ function onDrop(source, target, piece, newPos, oldPos, orientation) {
   } else {
     var rockFishMove = BestMove(chess.ugly_moves({verbose: true}), chess, 3)
     
-    var r = chess.move(rockFishMove);
+    var r = chess.ugly_move(rockFishMove);
     console.log(rockFishMove);
     console.log(r);
     board.position(chess.fen());
