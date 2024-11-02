@@ -114,9 +114,9 @@ var Sum = 0;
     8 - parseInt(move.to[1]),
     move.to.charCodeAt(0) - 'a'.charCodeAt(0),
   ];
-  Sum += 
-    weights[move.captured] +   
-    pstSelf[move.color][move.captured][to[0]][to[1]];
+  if ('captured' in move) {
+    Sum += weights[move.captured]; 
+  }
   Sum += pstSelf[move.color][move.piece][from[0]][from[1]];
   Sum -= pstSelf[move.color][move.piece][to[0]][to[1]];
 
