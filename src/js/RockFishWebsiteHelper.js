@@ -33,7 +33,7 @@ function onDrop(source, target, piece, newPos, oldPos, orientation) {
     console.log(rockFishMove);
     console.log(r);
     board.position(chess.fen());
-  }"
+  }
 }
 function ResetButtonClick()
 {
