@@ -105,7 +105,10 @@ function BestMove(moves, game, depth, returnSum = false) {
 }
 function Efunk(move, game, depth) {
 var Sum = 0;
-  
+  game.move(move)  
+  if (game.in_checkmate()) {
+    Sum = Infinity;
+  } else {
   var from = [
     8 - parseInt(move.from[1]),
     move.from.charCodeAt(0) - 'a'.charCodeAt(0),
@@ -114,17 +117,15 @@ var Sum = 0;
     8 - parseInt(move.to[1]),
     move.to.charCodeAt(0) - 'a'.charCodeAt(0),
   ];
+  
   if ('captured' in move) {
     Sum += weights[move.captured]; 
   }
   Sum += pstSelf[move.color][move.piece][from[0]][from[1]];
-  Sum -= pstSelf[move.color][move.piece][to[0]][to[1]];
-
-
-
+  Sum -= pstSelf[move.color][move.piece][to[0]][to[1]]; 
+  }
   if (depth !== 0)
   {
-    game.move(move)  
     var newMoves = game.ugly_moves({verbose: true})
     Sum -= BestMove(newMoves, game, depth - 1, true)
   }
