@@ -116,7 +116,7 @@ var Sum = 0;
   ];
   Sum += 
     weights[move.captured] +   
-    pstOpponent[move.color][move.captured][to[0]][to[1]];
+    pstSelf[move.color][move.captured][to[0]][to[1]];
   Sum += pstSelf[move.color][move.piece][from[0]][from[1]];
   Sum -= pstSelf[move.color][move.piece][to[0]][to[1]];
 
