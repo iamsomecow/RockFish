@@ -131,7 +131,7 @@ var Sum = 0;
   } else {
     if (Sum < B)
     {
-      B = -Sum;
+      B = Sum;
     }
   }
   
