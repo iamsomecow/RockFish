@@ -129,7 +129,7 @@ var Sum = 0;
       A = Sum;
     }
   } else {
-    if (-Sum < B)
+    if (Sum < B)
     {
       B = -Sum;
     }
