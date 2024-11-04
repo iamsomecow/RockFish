@@ -137,6 +137,7 @@ var Sum = 0;
   
   if (A >= B)
   {
+    console.log('prune')
     return -Infinity;
   }
   if (depth !== 0)
