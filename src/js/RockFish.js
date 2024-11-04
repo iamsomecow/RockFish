@@ -89,7 +89,7 @@ function BestMove(moves, game, depth, returnSum = false, A = Infinity, B = -Infi
   moves.forEach((move) => {
     var moveSum = Efunk(game.ugly_move(move), game, depth, A,B)
     game.undo() 
-    if (moveSum > BMSum && !moveSum = false)  {
+    if (moveSum > BMSum &&)  {
       BM = move;
       BMSum = moveSum;
     }    
