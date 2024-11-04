@@ -96,7 +96,7 @@ function BestMove(moves, game, depth, returnSum = false, A = -Infinity, B = Infi
       A = moveSum;
     }
   } else {
-    if moveSum < B)
+    if (moveSum < B)
     {
       B = moveSum;
     }
