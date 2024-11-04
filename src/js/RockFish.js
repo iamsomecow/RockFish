@@ -91,14 +91,14 @@ function BestMove(moves, game, depth, returnSum = false, A = -Infinity, B = Infi
     
     game.undo() 
     if (isA) {
-    if (moveSum > A)
+    if (-moveSum > A)
     {
-      A = moveSum;
+      A = -moveSum;
     }
   } else {
-    if (-moveSum < B)
+    if (moveSum < B)
     {
-      B = -moveSum;
+      B = moveSum;
     }
   }
   
