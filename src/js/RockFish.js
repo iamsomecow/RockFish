@@ -83,11 +83,11 @@ var pst_b = {
   k_e: pst_w['k_e'].slice().reverse(),
 };
 var pstSelf = { w: pst_w, b: pst_b };
-function BestMove(moves, game, depth, returnSum = false, A = -Infinity, B = Infinity) {
+function BestMove(moves, game, depth, returnSum = false, A = -Infinity, B = Infinity, isA = true) {
   var BM;
   var BMSum = -Infinity; 
   moves.forEach((move) => {
-    var moveSum = Efunk(game.ugly_move(move), game, depth, A,B)
+    var moveSum = Efunk(game.ugly_move(move), game, depth, A,B, isA)
     game.undo() 
     if (moveSum > BMSum)  {
       BM = move;
@@ -102,7 +102,7 @@ function BestMove(moves, game, depth, returnSum = false, A = -Infinity, B = Infi
   }
   
 }
-function Efunk(move, game, depth, A, B) {
+function Efunk(move, game, depth, A, B, isA) {
 var Sum = 0;
   game.move(move)  
   if (game.in_checkmate()) {
@@ -123,10 +123,18 @@ var Sum = 0;
   Sum += pstSelf[move.color][move.piece][from[0]][from[1]];
   Sum -= pstSelf[move.color][move.piece][to[0]][to[1]]; 
   }
-  if (Sum > A)
-  {
-    A = Sum;
+  if (isA) {
+    if (Sum > A)
+    {
+      A = Sum;
+    }
+  } else {
+    if (-Sum > B)
+    {
+      B = -Sum;
+    }
   }
+  
   if (A >= B)
   {
     return -Infinity;
@@ -135,7 +143,7 @@ var Sum = 0;
   {
     var newMoves = game.ugly_moves({verbose: true})
     
-    Sum -= BestMove(newMoves, game, depth - 1, true, B, A)
+    Sum -= BestMove(newMoves, game, depth - 1, true, A, B, !isA)
   }
 return Sum
 }
