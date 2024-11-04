@@ -83,7 +83,7 @@ var pst_b = {
   k_e: pst_w['k_e'].slice().reverse(),
 };
 var pstSelf = { w: pst_w, b: pst_b };
-function BestMove(moves, game, depth, returnSum = false, A = Infinity, B = -Infinity) {
+function BestMove(moves, game, depth, returnSum = false, A = -Infinity, B = Infinity) {
   var BM;
   var BMSum = -Infinity; 
   moves.forEach((move) => {
@@ -123,11 +123,11 @@ var Sum = 0;
   Sum += pstSelf[move.color][move.piece][from[0]][from[1]];
   Sum -= pstSelf[move.color][move.piece][to[0]][to[1]]; 
   }
-  if (Sum < A)
+  if (Sum > A)
   {
     A = Sum;
   }
-  if (A <= B)
+  if (A >= B)
   {
     return -Infinity;
   }
