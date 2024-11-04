@@ -123,11 +123,11 @@ var Sum = 0;
   Sum += pstSelf[move.color][move.piece][from[0]][from[1]];
   Sum -= pstSelf[move.color][move.piece][to[0]][to[1]]; 
   }
-  if (Sum > A)
+  if (Sum < A)
   {
     A = Sum;
   }
-  if (A >= B)
+  if (A <= B)
   {
     return -Infinity;
   }
