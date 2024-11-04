@@ -88,7 +88,25 @@ function BestMove(moves, game, depth, returnSum = false, A = -Infinity, B = Infi
   var BMSum = -Infinity; 
   moves.forEach((move) => {
     var moveSum = Efunk(game.ugly_move(move), game, depth, A,B, isA)
+    
     game.undo() 
+    if (isA) {
+    if (moveSum > A)
+    {
+      A = moveSum;
+    }
+  } else {
+    if (Sum < B)
+    {
+      B = moveSum;
+    }
+  }
+  
+  if (A >= B)
+  {
+    console.log('prune')
+    break;
+  }
     if (moveSum > BMSum)  {
       BM = move;
       BMSum = moveSum;
@@ -123,22 +141,7 @@ var Sum = 0;
   Sum += pstSelf[move.color][move.piece][from[0]][from[1]];
   Sum -= pstSelf[move.color][move.piece][to[0]][to[1]]; 
   }
-  if (isA) {
-    if (Sum > A)
-    {
-      A = Sum;
-    }
-  } else {
-    if (Sum < B)
-    {
-      B = Sum;
-    }
-  }
   
-  if (A >= B)
-  {
-    console.log('prune')
-    return -Infinity;
   }
   if (depth !== 0)
   {
