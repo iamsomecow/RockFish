@@ -142,8 +142,6 @@ var Sum = 0;
   Sum += pstSelf[move.color][move.piece][from[0]][from[1]];
   Sum -= pstSelf[move.color][move.piece][to[0]][to[1]]; 
   }
-  
-  }
   if (depth !== 0)
   {
     var newMoves = game.ugly_moves({verbose: true})
