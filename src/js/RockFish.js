@@ -89,6 +89,7 @@ function BestMove(moves, game, depth, returnSum = false, A = -Infinity, B = Infi
   var orderedMoves = [];
   moves.forEach((move) => {
     var pMove = game.ugly_move(move)
+    game.undo() 
     if ('captured' in pMove){
       orderedMoves.unshift(pMove);
     } else {
@@ -98,7 +99,7 @@ function BestMove(moves, game, depth, returnSum = false, A = -Infinity, B = Infi
   orderedMoves.find((move) => {
     var moveSum = Efunk(move, game, depth, A,B, isA)
     
-    game.undo() 
+    
     if (moveSum > BMSum)  {
       BM = move;
       BMSum = moveSum;
