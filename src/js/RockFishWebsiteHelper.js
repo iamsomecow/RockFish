@@ -33,6 +33,7 @@ function onDrop(source, target, piece, newPos, oldPos, orientation) {
     console.log(rockFishMove);
     console.log(r);
     board.position(chess.fen());
+    document.getElementById("Chess").innerHTML = chess.pgn();
   }
 }
 function ResetButtonClick()
