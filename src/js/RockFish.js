@@ -96,6 +96,7 @@ function BestMove(moves, game, depth, returnSum = false, A = -Infinity, B = Infi
       orderedMoves.push(move);
     }
   })
+  console.log(orderedMoves)
   orderedMoves.find((move) => {
     var moveSum = Efunk(game.ugly_move(move), game, depth, A,B, isA)
     game.undo();
