@@ -129,7 +129,7 @@ function BestMove(moves, game, depth, returnSum = false, A = -Infinity, B = Infi
   })
   if(returnSum === false)
   {
-    return BM;
+    return game.make_pretty(BM);
   } else {
     return BMSum;
   }
