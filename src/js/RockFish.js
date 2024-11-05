@@ -90,15 +90,19 @@ function BestMove(moves, game, depth, returnSum = false, A = -Infinity, B = Infi
     var moveSum = Efunk(game.ugly_move(move), game, depth, A,B, isA)
     
     game.undo() 
+    if (moveSum > BMSum)  {
+      BM = move;
+      BMSum = moveSum;
+    } else {   
     if (isA) {
-    if (-moveSum > A)
+    if (moveSum > A)
     {
-      A = -moveSum;
+      A = moveSum;
     }
   } else {
-    if (moveSum < B)
+    if (-moveSum < B)
     {
-      B = moveSum;
+      B = -moveSum;
     }
   }
   
@@ -111,6 +115,7 @@ function BestMove(moves, game, depth, returnSum = false, A = -Infinity, B = Infi
       BM = move;
       BMSum = moveSum;
     }    
+    } 
     return false;
   })
   if(returnSum === false)
@@ -119,8 +124,8 @@ function BestMove(moves, game, depth, returnSum = false, A = -Infinity, B = Infi
   } else {
     return BMSum;
   }
-  
 }
+
 function Efunk(move, game, depth, A, B, isA) {
 var Sum = 0;
   game.move(move)  
