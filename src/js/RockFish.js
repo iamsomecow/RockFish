@@ -88,12 +88,12 @@ function BestMove(moves, game, depth, returnSum = false, A = -Infinity, B = Infi
   var BMSum = -Infinity; 
   var orderedMoves = [];
   moves.forEach((move) => {
-    var pMove = game.ugly_move(move)
+    var move
     game.undo() 
-    if ('captured' in pMove){
-      orderedMoves.unshift(pMove);
+    if ('captured' in game.ugly_move(move)){
+      orderedMoves.unshift(move);
     } else {
-      orderedMoves.push(pMove);
+      orderedMoves.push(move);
     }
   })
   orderedMoves.find((move) => {
@@ -129,7 +129,7 @@ function BestMove(moves, game, depth, returnSum = false, A = -Infinity, B = Infi
   })
   if(returnSum === false)
   {
-    return game.make_pretty(BM);
+    return BM;
   } else {
     return BMSum;
   }
