@@ -93,7 +93,9 @@ function BestMove(moves, game, depth, returnSum = false, A = -Infinity, B = Infi
       game.undo();
       orderedMoves.unshift(move);
     } else {
+      game.undo();
       orderedMoves.push(move);
+      
     }
   })
   console.log(orderedMoves)
