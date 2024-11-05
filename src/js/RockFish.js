@@ -86,8 +86,17 @@ var pstSelf = { w: pst_w, b: pst_b };
 function BestMove(moves, game, depth, returnSum = false, A = -Infinity, B = Infinity, isA = true) {
   var BM;
   var BMSum = -Infinity; 
-  moves.find((move) => {
-    var moveSum = Efunk(game.ugly_move(move), game, depth, A,B, isA)
+  var orderedMoves = [];
+  moves.forEach((move) => {
+    var pMove = game.ugly_move(move)
+    if ('captured' in pMove){
+      orderedMoves.unshift(pMove);
+    } else {
+      orderedMoves.push(pMove);
+    }
+  })
+  orderedMoves.find((move) => {
+    var moveSum = Efunk(move, game, depth, A,B, isA)
     
     game.undo() 
     if (moveSum > BMSum)  {
@@ -108,7 +117,6 @@ function BestMove(moves, game, depth, returnSum = false, A = -Infinity, B = Infi
   
   if (A >= B)
   {
-    console.log('prune')
     return true;
   }
     if (moveSum > BMSum)  {
