@@ -90,6 +90,7 @@ function BestMove(moves, game, depth, returnSum = false, A = -Infinity, B = Infi
   moves.forEach((move) => {
     
     if ('captured' in game.ugly_move(move)){
+      game.undo();
       orderedMoves.unshift(move);
     } else {
       orderedMoves.push(move);
