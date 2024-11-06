@@ -128,8 +128,7 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
     if (moveSum > bestMoveSum) {
       bestMove = move;
       bestMoveSum = moveSum;
-    }    
-    } 
+    }   
     return false;
   })
   return [bestMove, bestMoveSum]
@@ -148,14 +147,12 @@ function Efunk(move, game, prevSum) {
     8 - parseInt(move.to[1]),
     move.to.charCodeAt(0) - 'a'.charCodeAt(0),
   ];
-  
   if ('captured' in move) {
     prevSum += weights[move.captured]; 
   }
   prevSum += pstSelf[move.color][move.piece][from[0]][from[1]];
   prevSum -= pstSelf[move.color][move.piece][to[0]][to[1]]; 
   }
-  
 return Sum
 }
 
