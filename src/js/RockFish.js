@@ -88,26 +88,24 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
   let bestMoveSum = -Infinity; 
   let orderedMoves = [];
   moves.forEach((move) => {
-    
     if ('captured' in game.ugly_move(move)){
       game.undo();
       orderedMoves.unshift(move);
     } else {
       game.undo();
       orderedMoves.push(move);
-      
     }
   })
   orderedMoves.find((move) => {
-    let moveSum = -Efunk(game.ugly_move(move), game, sum);
-    
-    game.undo();   
     if (isAlpha) {
+      let moveSum = Efunk(game.ugly_move(move), game, sum);
+      game.undo();   
       if (moveSum > alpha) {
         alpha = moveSum;
       }
     } else {
-      
+      let moveSum = -Efunk(game.ugly_move(move), game, sum);
+      game.undo();
       if (moveSum < beta) { 
         beta = moveSum;  
       }
