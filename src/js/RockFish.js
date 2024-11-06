@@ -1,5 +1,5 @@
-var weights = { p: 100, n: 280, b: 320, r: 479, q: 929, k: 60000, k_e: 60000 };
-var pst_w = {
+const weights = { p: 100, n: 280, b: 320, r: 479, q: 929, k: 60000, k_e: 60000 };
+const pst_w = {
   p: [
     [100, 100, 100, 100, 105, 100, 100, 100],
     [78, 83, 86, 73, 102, 82, 85, 90],
@@ -73,7 +73,7 @@ var pst_w = {
     [-50, -30, -30, -30, -30, -30, -30, -50],
   ],
 };
-var pst_b = {
+const pst_b = {
   p: pst_w['p'].slice().reverse(),
   n: pst_w['n'].slice().reverse(),
   b: pst_w['b'].slice().reverse(),
@@ -82,11 +82,11 @@ var pst_b = {
   k: pst_w['k'].slice().reverse(),
   k_e: pst_w['k_e'].slice().reverse(),
 };
-var pstSelf = { w: pst_w, b: pst_b };
+const pstSelf = { w: pst_w, b: pst_b };
 function BestMove(moves, game, depth, returnSum = false, A = -Infinity, B = Infinity, isA = true) {
-  var BM;
-  var BMSum = -Infinity; 
-  var orderedMoves = [];
+  let BM;
+  let BMSum = -Infinity; 
+  let orderedMoves = [];
   moves.forEach((move) => {
     
     if ('captured' in game.ugly_move(move)){
@@ -100,7 +100,7 @@ function BestMove(moves, game, depth, returnSum = false, A = -Infinity, B = Infi
   })
   console.log(orderedMoves)
   orderedMoves.find((move) => {
-    var moveSum = Efunk(game.ugly_move(move), game, depth, A,B, isA)
+    let moveSum = Efunk(game.ugly_move(move), game)
     game.undo();
     
     if (moveSum > BMSum)  {
@@ -123,6 +123,11 @@ function BestMove(moves, game, depth, returnSum = false, A = -Infinity, B = Infi
   {
     return true;
   }
+  if (depth !== 0)
+  {
+    const newMoves = game.ugly_moves({verbose: true});
+    moveSum -= BestMove(newMoves, game, depth - 1, true, A, B, !isA);
+  }
     if (moveSum > BMSum)  {
       BM = move;
       BMSum = moveSum;
@@ -138,17 +143,17 @@ function BestMove(moves, game, depth, returnSum = false, A = -Infinity, B = Infi
   }
 }
 
-function Efunk(move, game, depth, A, B, isA) {
-var Sum = 0;
+function Efunk(move, game) {
+let Sum = 0;
   game.move(move)  
   if (game.in_checkmate()) {
     return Infinity;
   } else {
-  var from = [
+  const from = [
     8 - parseInt(move.from[1]),
     move.from.charCodeAt(0) - 'a'.charCodeAt(0),
   ];
-  var to = [
+  const to = [
     8 - parseInt(move.to[1]),
     move.to.charCodeAt(0) - 'a'.charCodeAt(0),
   ];
@@ -159,12 +164,7 @@ var Sum = 0;
   Sum += pstSelf[move.color][move.piece][from[0]][from[1]];
   Sum -= pstSelf[move.color][move.piece][to[0]][to[1]]; 
   }
-  if (depth !== 0)
-  {
-    var newMoves = game.ugly_moves({verbose: true})
-    
-    Sum -= BestMove(newMoves, game, depth - 1, true, A, B, !isA)
-  }
+  
 return Sum
 }
 
