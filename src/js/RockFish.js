@@ -107,9 +107,9 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
         alpha = moveSum;
       }
     } else {
-      moveSum = - moveSum;
-      if (moveSum < beta) { 
-        beta = moveSum;  
+      
+      if (-moveSum < beta) { 
+        beta = -moveSum;  
       }
     }
   if (alpha >= beta) {
