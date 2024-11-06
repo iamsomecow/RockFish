@@ -83,9 +83,9 @@ const pst_b = {
   k_e: pst_w['k_e'].slice().reverse(),
 };
 const pstSelf = { w: pst_w, b: pst_b };
-function BestMove(moves, game, depth, returnSum = false, A = -Infinity, B = Infinity, isA = true) {
-  let BM;
-  let BMSum = -Infinity; 
+function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, isAlpha = true, ) {
+  let bestMove;
+  let bestMoveSum = -Infinity; 
   let orderedMoves = [];
   moves.forEach((move) => {
     
@@ -98,53 +98,44 @@ function BestMove(moves, game, depth, returnSum = false, A = -Infinity, B = Infi
       
     }
   })
-  console.log(orderedMoves)
   orderedMoves.find((move) => {
-    let moveSum = Efunk(game.ugly_move(move), game)
-    game.undo();
-    
-    if (moveSum > BMSum)  {
-      BM = move;
-      BMSum = moveSum;
-    } else {   
-    if (isA) {
-    if (moveSum > A)
-    {
-      A = moveSum;
+    const moveSum = Efunk(game.ugly_move(move), game, -sum);
+    game.undo();   
+    if (isAlpha) {
+      if (moveSum > alpha) {
+        alpha = moveSum;
+      }
+    } else {
+      if (moveSum < beta) { 
+        beta = moveSum;  
+      }
     }
-  } else {
-    if (-moveSum < B)
-    {
-      B = -moveSum;
-    }
-  }
-  
-  if (A >= B)
-  {
+  if (alpha >= beta) {
     return true;
   }
-  if (depth !== 0)
-  {
+  if (depth !== 0) {
     const newMoves = game.ugly_moves({verbose: true});
-    moveSum -= BestMove(newMoves, game, depth - 1, true, A, B, !isA);
+    const [ChildBestMove, ChildBestMoveSum] = minimax(
+      newMoves,
+      game,
+      depth - 1,
+      moveSum,
+      alpha,
+      beta,
+      !isAlpha, 
+    );
   }
-    if (moveSum > BMSum)  {
-      BM = move;
-      BMSum = moveSum;
+    if (moveSum > bestMoveSum) {
+      bestMove = move;
+      bestMoveSum = moveSum;
     }    
     } 
     return false;
   })
-  if(returnSum === false)
-  {
-    return BM;
-  } else {
-    return BMSum;
-  }
+  return [bestMove, bestMoveSum]
 }
 
-function Efunk(move, game) {
-let Sum = 0;
+function Efunk(move, game, prevSum) {
   game.move(move)  
   if (game.in_checkmate()) {
     return Infinity;
@@ -159,10 +150,10 @@ let Sum = 0;
   ];
   
   if ('captured' in move) {
-    Sum += weights[move.captured]; 
+    prevSum += weights[move.captured]; 
   }
-  Sum += pstSelf[move.color][move.piece][from[0]][from[1]];
-  Sum -= pstSelf[move.color][move.piece][to[0]][to[1]]; 
+  prevSum += pstSelf[move.color][move.piece][from[0]][from[1]];
+  prevSum -= pstSelf[move.color][move.piece][to[0]][to[1]]; 
   }
   
 return Sum
