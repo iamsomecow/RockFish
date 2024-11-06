@@ -148,7 +148,7 @@ function Efunk(move, game, prevSum) {
     move.to.charCodeAt(0) - 'a'.charCodeAt(0),
   ];
   if ('captured' in move) {
-    prevSum += weights[move.captured]; 
+    prevSum -= weights[move.captured]; 
   }
   prevSum += pstSelf[move.color][move.piece][from[0]][from[1]];
   prevSum -= pstSelf[move.color][move.piece][to[0]][to[1]]; 
