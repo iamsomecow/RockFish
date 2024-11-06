@@ -98,13 +98,13 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
   })
   orderedMoves.find((move) => {
     if (isAlpha) {
-      let moveSum = Efunk(game.ugly_move(move), game, sum);
+      var moveSum = Efunk(game.ugly_move(move), game, sum);
       game.undo();   
       if (moveSum > alpha) {
         alpha = moveSum;
       }
     } else {
-      let moveSum = -Efunk(game.ugly_move(move), game, sum);
+      var moveSum = -Efunk(game.ugly_move(move), game, sum);
       game.undo();
       if (moveSum < beta) { 
         beta = moveSum;  
