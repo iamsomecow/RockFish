@@ -22,12 +22,11 @@ function onDrop(source, target, piece, newPos, oldPos, orientation) {
   if (result === null) return 'snapback';
 
   // Update the board position in chessboard.js
-  board.position(chess.fen());
   document.getElementById("Chess").innerHTML = chess.pgn()
   if (chess.game_over()) {
     alert('Game Over');
   } else {
-    var rockFishMove = BestMove(chess.ugly_moves({verbose: true}), chess, 3)
+    var [rockFishMove, rockFishMoveSum] = minimax(chess.ugly_moves({verbose: true}), chess, 3, 0)
     
     var r = chess.ugly_move(rockFishMove);
     console.log(rockFishMove);
