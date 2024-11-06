@@ -99,7 +99,7 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
     }
   })
   orderedMoves.find((move) => {
-    let moveSum = Efunk(game.ugly_move(move), game, sum);
+    let moveSum = -Efunk(game.ugly_move(move), game, sum);
     
     game.undo();   
     if (isAlpha) {
@@ -108,8 +108,8 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
       }
     } else {
       
-      if (-moveSum < beta) { 
-        beta = -moveSum;  
+      if (moveSum < beta) { 
+        beta = moveSum;  
       }
     }
   if (alpha >= beta) {
@@ -150,7 +150,7 @@ function Efunk(move, game, prevSum) {
     move.to.charCodeAt(0) - 'a'.charCodeAt(0),
   ];
   if ('captured' in move) {
-    prevSum -= weights[move.captured]; 
+    prevSum += weights[move.captured]; 
   }
   prevSum += pstSelf[move.color][move.piece][from[0]][from[1]];
   prevSum -= pstSelf[move.color][move.piece][to[0]][to[1]]; 
