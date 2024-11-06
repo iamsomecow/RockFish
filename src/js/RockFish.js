@@ -135,7 +135,7 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
 }
 
 function Efunk(move, game, prevSum) {
-  game.move(move)  
+  game.move(move);  
   if (game.in_checkmate()) {
     return Infinity;
   } else {
@@ -153,6 +153,6 @@ function Efunk(move, game, prevSum) {
   prevSum += pstSelf[move.color][move.piece][from[0]][from[1]];
   prevSum -= pstSelf[move.color][move.piece][to[0]][to[1]]; 
   }
-return Sum
+return prevSum;
 }
 
