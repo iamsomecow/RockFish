@@ -1,4 +1,12 @@
-# javascript chess engine
+
+# RockFish chess engine
+
+made in javascript
+
+# dependentces 
+
+chess.js
 
 # api
-`minimax(chessjs_board, search depth);`
+
+`minimax(chessjs_board, search_depth);`
