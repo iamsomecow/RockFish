@@ -2,6 +2,7 @@
 # RockFish chess engine
 
 made in javascript
+https://iamsomecow.github.io/RockFish/
 
 # dependentces 
 
