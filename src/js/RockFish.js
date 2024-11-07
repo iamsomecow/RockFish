@@ -100,7 +100,7 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
     if (isAlpha) {
       var moveSum = -Efunk(game.ugly_move(move), game, sum);
       game.undo();   
-      if (-moveSum > alpha) {
+      if (moveSum > alpha) {
         alpha = moveSum;
       }
     } else {
