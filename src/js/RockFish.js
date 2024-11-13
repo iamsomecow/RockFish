@@ -122,12 +122,12 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
     );
     game.undo();
     if (isAlpha) {
-      if (childBestMoveSum > alpha) {
-        alpha = childBestMoveSum;
+      if (-childBestMoveSum > alpha) {
+        alpha = -childBestMoveSum;
       }
     } else {
-      if (childBestMoveSum < beta) { 
-        beta = childBestMoveSum;  
+      if (-childBestMoveSum < beta) { 
+        beta = -childBestMoveSum;  
       }
     }
     if (alpha >= beta) {
