@@ -85,10 +85,11 @@ const pst_b = {
 const pstSelf = { w: pst_w, b: pst_b };
 function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, isAlpha = true, ) {
   let bestMove;
+  let bestMoveSum;
   if (isAlpha) {
-    var bestMoveSum = Infinity; 
+    var bestChildMoveSum = Infinity; 
   } else {
-    var bestMoveSum = -Infinity; 
+    var bestChildMoveSum = -Infinity; 
   }
   let orderedMoves = [];
   moves.forEach((move) => {
@@ -133,9 +134,10 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
     if (alpha >= beta) {
     return true;
     }
-    if (-childBestMoveSum > bestMoveSum) {
+    if (-childBestMoveSum > bestChildMoveSum) {
       bestMove = move;
-      bestMoveSum = -childBestMoveSum;
+      bestChildMoveSum = -childBestMoveSum;
+      bestMoveSum = moveSum
     }   
     return false;
   }
