@@ -85,7 +85,11 @@ const pst_b = {
 const pstSelf = { w: pst_w, b: pst_b };
 function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, isAlpha = true, ) {
   let bestMove;
+  if (isAlpha) {
+    let bestMoveSum = Infinity; 
+  } else {
   let bestMoveSum = -Infinity; 
+  }
   let orderedMoves = [];
   moves.forEach((move) => {
     if ('captured' in game.ugly_move(move)){
