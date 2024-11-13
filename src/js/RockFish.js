@@ -93,10 +93,8 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
   let orderedMoves = [];
   moves.forEach((move) => {
     if ('captured' in game.ugly_move(move)){
-      game.undo();
       orderedMoves.unshift(move);
     } else {
-      game.undo();
       orderedMoves.push(move);
     }
   })
