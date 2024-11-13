@@ -87,9 +87,9 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
   let bestMove;
   let bestMoveSum;
   if (isAlpha) {
-    var bestChildMoveSum = Infinity; 
-  } else {
     var bestChildMoveSum = -Infinity; 
+  } else {
+    var bestChildMoveSum = Infinity; 
   }
   let orderedMoves = [];
   moves.forEach((move) => {
