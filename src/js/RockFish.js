@@ -104,19 +104,10 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
     if (isAlpha) {
       var moveSum = -Efunk(game.ugly_move(move), game, sum);
       game.undo();   
-      if (moveSum > alpha) {
-        alpha = moveSum;
-      }
     } else {
       var moveSum = Efunk(game.ugly_move(move), game, sum);
       game.undo();
-      if (moveSum < beta) { 
-        beta = moveSum;  
-      }
     }
-  if (alpha >= beta) {
-    return true;
-  }
   if (depth !== 0) {
     const newMoves = game.ugly_moves({verbose: true});
     var [childBestMove, childBestMoveSum] = minimax(
@@ -128,12 +119,24 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
       beta,
       !isAlpha, 
     );
-  }
+    if (isAlpha) {
+      if (moveSum > alpha) {
+        alpha = childBestMoveSum;
+      }
+    } else {
+      if (moveSum < beta) { 
+        beta = childBestMoveSum;  
+      }
+    }
+    if (alpha >= beta) {
+    return true;
+    }
     if (childBestMoveSum > bestMoveSum) {
       bestMove = move;
       bestMoveSum = childBestMoveSum;
     }   
     return false;
+  }
   })
   return [bestMove, bestMoveSum]
 }
