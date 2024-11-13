@@ -167,14 +167,14 @@ function Efunk(move, game, prevSum, isMaxer) {
     if ('captured' in move) {
       prevSum += weights[move.captured]; 
     }
-    prevSum += pstSelf[move.color][move.piece][from[0]][from[1]];
-    prevSum -= pstSelf[move.color][move.piece][to[0]][to[1]]; 
+    prevSum -= pstSelf[move.color][move.piece][from[0]][from[1]];
+    prevSum += pstSelf[move.color][move.piece][to[0]][to[1]]; 
   } else {
     if ('captured' in move) {
       prevSum -= weights[move.captured]; 
     }
-    prevSum -= pstSelf[move.color][move.piece][from[0]][from[1]];
-    prevSum += pstSelf[move.color][move.piece][to[0]][to[1]]; 
+    prevSum += pstSelf[move.color][move.piece][from[0]][from[1]];
+    prevSum -= pstSelf[move.color][move.piece][to[0]][to[1]]; 
 }
 return prevSum;
 }
