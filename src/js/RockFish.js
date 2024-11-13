@@ -102,13 +102,8 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
     }
   })
   orderedMoves.find((move) => {
-    if (isAlpha) {
-      var moveSum = Efunk(game.ugly_move(move), game, sum);
-      game.undo();   
-    } else {
-      var moveSum = Efunk(game.ugly_move(move), game, sum);
-      game.undo();
-    }
+    var moveSum = Efunk(game.ugly_move(move), game, sum, isAlpha );
+    
   if (depth !== 0) {
     game.ugly_move(move);
     const newMoves = game.ugly_moves({verbose: true});
@@ -175,7 +170,8 @@ function Efunk(move, game, prevSum, isMaxer) {
     }
     prevSum += pstSelf[move.color][move.piece][from[0]][from[1]];
     prevSum -= pstSelf[move.color][move.piece][to[0]][to[1]]; 
-}
-return prevSum;
+  }
+  return prevSum;
+  }
 }
 
