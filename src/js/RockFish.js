@@ -126,7 +126,7 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
       if (-childBestMoveSum > bestChildMoveSum) {
         bestMove = move;
         bestChildMoveSum = -childBestMoveSum;
-        bestMoveSum = moveSum
+        bestMoveSum = moveSum;
       }   
       if (-childBestMoveSum > alpha) {
         alpha = -childBestMoveSum;
@@ -135,10 +135,10 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
       if (childBestMoveSum > bestChildMoveSum) {
         bestMove = move;
         bestChildMoveSum = childBestMoveSum;
-        bestMoveSum = moveSum
+        bestMoveSum = moveSum;
       }   
-      if (-childBestMoveSum < beta) { 
-        beta = -childBestMoveSum;  
+      if (childBestMoveSum < beta) { 
+        beta = childBestMoveSum;  
       }
     }
     if (alpha >= beta) {
