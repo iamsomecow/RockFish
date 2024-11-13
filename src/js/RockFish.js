@@ -144,11 +144,6 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
     if (alpha >= beta) {
     return true;
     }
-    if (-childBestMoveSum > bestChildMoveSum) {
-      bestMove = move;
-      bestChildMoveSum = -childBestMoveSum;
-      bestMoveSum = moveSum
-    }   
     return false;
   }
   })
