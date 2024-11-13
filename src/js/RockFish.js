@@ -110,9 +110,10 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
     }
   if (depth !== 0) {
     const newMoves = game.ugly_moves({verbose: true});
+    game.ugly_move(move);
     var [childBestMove, childBestMoveSum] = minimax(
       newMoves,
-      game.ugly_move(move),
+      game,
       depth - 1,
       moveSum,
       alpha,
