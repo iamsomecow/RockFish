@@ -96,7 +96,7 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
       game.undo();
       let bCaptured = 'captured' in game.ugly_move(b);
       game.undo();
-      return aCaptured - bCaptured;
+      return bCaptured - aCaptured;
     })
     console.log(orderedMoves);
     orderedMoves.find((move) => {
