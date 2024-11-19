@@ -136,7 +136,7 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
         beta = childBestMoveSum;  
       }
     }
-    if (alpha >= beta) {
+    if (alpha <= beta) {
     return true;
     }
     return false;
