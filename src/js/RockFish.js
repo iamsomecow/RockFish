@@ -84,8 +84,10 @@ const pst_b = {
 };
 const pstSelf = { w: pst_w, b: pst_b };
 function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, isAlpha = true, ) {
-  if (depth !== 0 || moves.length !== 0) {
-    let bestMove;
+  if (depth === 0 || moves.length === 0) {
+    return [null, sum]
+} else {
+  let bestMove;
     if (isAlpha) {
     var bestChildMoveSum = Infinity; 
     } else {
@@ -134,12 +136,8 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
     }
     return false;
   })
-  return [bestMove, bestChildMoveSum]
-} else {
-  return [null, sum]
 }
 }
-
 function Efunk(move, game, prevSum, isMaxer) {
   game.move(move);  
   if (game.in_checkmate()) {
