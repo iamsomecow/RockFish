@@ -27,12 +27,12 @@ function onDrop(source, target, piece, newPos, oldPos, orientation) {
     alert('Game Over');
   } else {
     var [rockFishMove, rockFishMoveSum] = minimax(chess.ugly_moves({verbose: true}), chess, 3, 0)
-    console.log(rockFishMove);
-    console.log(rockFishMoveSum);
-    var r = chess.ugly_move(rockFishMove);
-    console.log(rockFishMove);
-    console.log(r);
-    board.position(chess.fen());
+    var move = chess.ugly_move(rockFishMove);
+    board.move({
+      from: move.from,
+      to: move.to,
+      promotion: 'q' // Always promote to a queen for simplicity
+    });
     document.getElementById("Chess").innerHTML = chess.pgn();
   }
 }
