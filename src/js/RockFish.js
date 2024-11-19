@@ -84,27 +84,27 @@ const pst_b = {
 };
 const pstSelf = { w: pst_w, b: pst_b };
 function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, isAlpha = true, ) {
-  let bestMove;
-  let bestMoveSum;
-  if (isAlpha) {
+  if (depth !== 0 || moves.length !== 0) {
+    let bestMove;
+    let bestMoveSum;
+    if (isAlpha) {
     var bestChildMoveSum = Infinity; 
-  } else {
-    var bestChildMoveSum = -Infinity; 
-  }
-  let orderedMoves = [];
-  moves.forEach((move) => {
-    if ('captured' in game.ugly_move(move)){
-      game.undo();
-      orderedMoves.unshift(move);
     } else {
-      game.undo();
-      orderedMoves.push(move);
+      var bestChildMoveSum = -Infinity; 
     }
-  })
-  orderedMoves.find((move) => {
-  var moveSum = Efunk(game.ugly_move(move), game, sum, isAlpha );
-  game.undo();
-  if (depth !== 0) {
+    let orderedMoves = [];
+    moves.forEach((move) => {
+      if ('captured' in game.ugly_move(move)){
+        game.undo();
+        orderedMoves.unshift(move);
+      } else {
+        game.undo();
+        orderedMoves.push(move);
+      }
+    })
+    orderedMoves.find((move) => {
+    var moveSum = Efunk(game.ugly_move(move), game, sum, isAlpha );
+    game.undo();
     game.ugly_move(move);
     const newMoves = game.ugly_moves({verbose: true});
     var [childBestMove, childBestMoveSum] = minimax(
@@ -137,12 +137,14 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
       }
     }
     if (alpha >= beta) {
-    return true;
+      return true;
     }
     return false;
-  }
   })
   return [bestMove, bestChildMoveSum]
+} else {
+  return [null, sum]
+}
 }
 
 function Efunk(move, game, prevSum, isMaxer) {
