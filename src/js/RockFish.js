@@ -89,9 +89,9 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
 } else {
   let bestMove;
     if (isAlpha) {
-    var bestChildMoveSum = Infinity; 
+    var bestChildMoveSum = -Infinity; 
     } else {
-      var bestChildMoveSum = -Infinity; 
+      var bestChildMoveSum = Infinity; 
     }
     let orderedMoves = moves.sort((a, b) => {
       let aCaptured = 'captured' in game.ugly_move(a);
@@ -116,13 +116,13 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
     );
     game.undo();
     if (isAlpha) {
-      if (childBestMoveSum < bestChildMoveSum) {
+      if (childBestMoveSum > bestChildMoveSum) {
         bestMove = move;
         bestChildMoveSum = childBestMoveSum;
       }   
       alpha = Math.max(alpha, childBestMoveSum);
     } else {
-      if (childBestMoveSum > bestChildMoveSum) {
+      if (childBestMoveSum < bestChildMoveSum) {
         bestMove = move;
         bestChildMoveSum = childBestMoveSum;
       }   
