@@ -137,6 +137,7 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
     }
     return false;
   })
+  return [bestMove,  bestChildMoveSum]
 }
 }
 function Efunk(move, game, prevSum, isMaxer) {
