@@ -28,11 +28,7 @@ function onDrop(source, target, piece, newPos, oldPos, orientation) {
   } else {
     var [rockFishMove, rockFishMoveSum] = minimax(chess.ugly_moves({verbose: true}), chess, 3, 0)
     var move = chess.ugly_move(rockFishMove);
-    board.move({
-      from: move.from,
-      to: move.to,
-      promotion: 'q' // Always promote to a queen for simplicity
-    });
+    board.move(move.san);
     document.getElementById("Chess").innerHTML = chess.pgn();
   }
 }
