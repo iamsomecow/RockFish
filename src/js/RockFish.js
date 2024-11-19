@@ -87,9 +87,9 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
   let bestMove;
   let bestMoveSum;
   if (isAlpha) {
-    var bestChildMoveSum = -Infinity; 
-  } else {
     var bestChildMoveSum = Infinity; 
+  } else {
+    var bestChildMoveSum = -Infinity; 
   }
   let orderedMoves = [];
   moves.forEach((move) => {
@@ -118,7 +118,7 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
     );
     game.undo();
     if (isAlpha) {
-      if (childBestMoveSum > bestChildMoveSum) {
+      if (childBestMoveSum < bestChildMoveSum) {
         bestMove = move;
         bestChildMoveSum = childBestMoveSum;
         bestMoveSum = moveSum;
@@ -127,7 +127,7 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
         alpha = childBestMoveSum;
       }
     } else {
-      if (childBestMoveSum < bestChildMoveSum) {
+      if (childBestMoveSum > bestChildMoveSum) {
         bestMove = move;
         bestChildMoveSum = childBestMoveSum;
         bestMoveSum = moveSum;
