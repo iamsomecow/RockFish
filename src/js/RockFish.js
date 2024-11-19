@@ -118,16 +118,16 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
     );
     game.undo();
     if (isAlpha) {
-      if (childBestMoveSum < bestChildMoveSum) {
+      if (childBestMoveSum > bestChildMoveSum) {
         bestMove = move;
         bestChildMoveSum = -childBestMoveSum;
         bestMoveSum = moveSum;
       }   
       if (childBestMoveSum > alpha) {
-        alpha = -childBestMoveSum;
+        alpha = childBestMoveSum;
       }
     } else {
-      if (childBestMoveSum > bestChildMoveSum) {
+      if (childBestMoveSum < bestChildMoveSum) {
         bestMove = move;
         bestChildMoveSum = childBestMoveSum;
         bestMoveSum = moveSum;
@@ -148,7 +148,11 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
 function Efunk(move, game, prevSum, isMaxer) {
   game.move(move);  
   if (game.in_checkmate()) {
-    return Infinity;
+    if (isMaxer) {
+      return Infinity;
+    } else {
+      return -Infinity;
+    }
   } else {
   const from = [
     8 - parseInt(move.from[1]),
