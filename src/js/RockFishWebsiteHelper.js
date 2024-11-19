@@ -28,7 +28,7 @@ function onDrop(source, target, piece, newPos, oldPos, orientation) {
   } else {
     var [rockFishMove, rockFishMoveSum] = minimax(chess.ugly_moves({verbose: true}), chess, 3, 0)
     var move = chess.ugly_move(rockFishMove);
-    board.move(move.to + move.from);
+    board.position(chess.fen());
     document.getElementById("Chess").innerHTML = chess.pgn();
   }
 }
