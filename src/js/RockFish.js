@@ -1,4 +1,3 @@
-let transpositionTable = new Map();
 let historyTable = {}; // Initialize a history table
 let killerMoves = Array(100).fill(null).map(() => []); 
 const weights = { p: 100, n: 280, b: 320, r: 479, q: 929, k: 60000, k_e: 60000 };
@@ -90,14 +89,10 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
   if (depth === 0 || moves.length === 0) {
     return [null, sum]
 } else {
-  let hash = game.fen();
-    if (transpositionTable.has(hash)) {
-        return transpositionTable.get(hash);
-    }
-  let bestMove;
+    let bestMove;
     if (isAlpha) {
     var bestChildMoveSum = -Infinity; 
-    } else {{}
+    } else {
       var bestChildMoveSum = Infinity; 
     }
     let orderedMoves = moves.sort((a, b) => {
@@ -156,7 +151,6 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
     }
     return false;
   })
-  transpositionTable.set(hash, [bestMove, bestChildMoveSum]);
   return [bestMove,  bestChildMoveSum]
 }
 }
