@@ -8,6 +8,7 @@ var config = {
   onDrop: onDrop,
   onSnapEnd: onSnapEnd,
 }
+var depth = 3;
 board = ChessBoard('Board1', config);
 function onDrop(source, target, piece, newPos, oldPos, orientation) {
   var move = {
@@ -27,7 +28,7 @@ function onDrop(source, target, piece, newPos, oldPos, orientation) {
   if (chess.game_over()) {
     alert('Game Over');
   } else {
-    var [rockFishMove, rockFishMoveSum] = minimax(chess.ugly_moves({verbose: true}), chess, 3, 0)
+    var [rockFishMove, rockFishMoveSum] = minimax(chess.ugly_moves({verbose: true}), chess, depth, 0)
     var move = chess.ugly_move(rockFishMove);
     document.getElementById("Chess").innerHTML = chess.pgn();
   }
@@ -57,5 +58,15 @@ function FenButtonClick()
 {
   chess.load(prompt('Load Fen'));
   board.position(chess.fen());
+}
+function SetDepth() 
+{
+  const input = parseInt(prompt('input depth'));
+  if (!(isNaN(input)))
+  {
+    depth = input;
+  } else {
+    alert("not a valid number");
+  }
 }
 
