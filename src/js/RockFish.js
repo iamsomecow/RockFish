@@ -90,15 +90,23 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
   let bestMove;
     if (isAlpha) {
     var bestChildMoveSum = -Infinity; 
-    } else {
+    } else {{}
       var bestChildMoveSum = Infinity; 
     }
     let orderedMoves = moves.sort((a, b) => {
-      let aCaptured = 'captured' in game.ugly_move(a);
+      var aMove = game.ugly_move(a);
+      var bMove = game.ugly_move(b);
+      let aCaptured = 'captured' in aMove;
       game.undo();
-      let bCaptured = 'captured' in game.ugly_move(b);
+      let bCaptured = 'captured' in bMove;
       game.undo();
-      return bCaptured - aCaptured;
+      if (aCaptured && bCaptured) {
+        return (weights[aMove.captured] - weights[aMove.piece]) - (weights[bMove.captured] - weights[bMove.piece]);
+      } else if (aCaptured) {
+        return -1;
+      } else {
+        return 1;
+      }
     })
     orderedMoves.find((move) => {
     let prittyMove = game.ugly_move(move);
