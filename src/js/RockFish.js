@@ -100,7 +100,6 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
       game.undo();
       return bCaptured - aCaptured;
     })
-    console.log(orderedMoves);
     orderedMoves.find((move) => {
     let prittyMove = game.ugly_move(move);
     var moveSum = Efunk(prittyMove, game, sum, isAlpha );

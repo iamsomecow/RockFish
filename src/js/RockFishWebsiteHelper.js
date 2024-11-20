@@ -5,7 +5,8 @@ var config = {
   position: 'start',
   draggable: true,
   dropOffBoard: 'snapback',
-  onDrop: onDrop
+  onDrop: onDrop,
+  onSnapEnd: onSnapEnd,
 }
 board = ChessBoard('Board1', config);
 function onDrop(source, target, piece, newPos, oldPos, orientation) {
@@ -28,10 +29,12 @@ function onDrop(source, target, piece, newPos, oldPos, orientation) {
   } else {
     var [rockFishMove, rockFishMoveSum] = minimax(chess.ugly_moves({verbose: true}), chess, 3, 0)
     var move = chess.ugly_move(rockFishMove);
-    console.log(chess.fen());
-    board.position(chess.fen());
     document.getElementById("Chess").innerHTML = chess.pgn();
   }
+}
+function onSnapEnd() 
+{
+  board.position(chess.fen());
 }
 function ResetButtonClick()
 {
@@ -52,7 +55,7 @@ function PgnButtonClick()
 }
 function FenButtonClick()
 {
-  chess.load(prompt('Load Pgn'));
+  chess.load(prompt('Load Fen'));
   board.position(chess.fen());
 }
 
