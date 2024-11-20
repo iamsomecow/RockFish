@@ -95,11 +95,11 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
     }
     let orderedMoves = moves.sort((a, b) => {
       var aMove = game.ugly_move(a);
+      game.undo();
       var bMove = game.ugly_move(b);
+      game.undo();
       let aCaptured = 'captured' in aMove;
-      game.undo();
       let bCaptured = 'captured' in bMove;
-      game.undo();
       if (aCaptured && bCaptured) {
         return (weights[aMove.captured] - weights[aMove.piece]) - (weights[bMove.captured] - weights[bMove.piece]);
       } else if (aCaptured) {
