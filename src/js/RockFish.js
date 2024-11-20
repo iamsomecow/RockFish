@@ -100,7 +100,7 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
       game.undo();
       var bMove = game.ugly_move(b);
       game.undo();
-      if (aMove.flags.includes('c') && bMove.flags.includes('c')f) {
+      if (aMove.flags.includes('c') && bMove.flags.includes('c')) {
         return (weights[aMove.captured] - weights[aMove.piece]) - (weights[bMove.captured] - weights[bMove.piece]);
       } else if (aMove.flags.includes('c')) {
         return -1;
