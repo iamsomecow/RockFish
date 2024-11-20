@@ -149,7 +149,6 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
       }   
       beta = Math.min(beta, bestChildMoveSum);
     }
-    transpositionTable.set(hash, [bestMove, bestChildMoveSum]);
     if (alpha >= beta) {
       updateHistory(prittyMove, depth);
       updateKillerMoves(prittyMove, depth);
@@ -157,6 +156,7 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
     }
     return false;
   })
+  transpositionTable.set(hash, [bestMove, bestChildMoveSum]);
   return [bestMove,  bestChildMoveSum]
 }
 }
