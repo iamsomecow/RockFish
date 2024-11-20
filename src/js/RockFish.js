@@ -1,3 +1,5 @@
+let historyTable = {}; // Initialize a history table
+let killerMoves = Array(100).fill(null).map(() => []); 
 const weights = { p: 100, n: 280, b: 320, r: 479, q: 929, k: 60000, k_e: 60000 };
 const pst_w = {
   p: [
@@ -98,15 +100,22 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
       game.undo();
       var bMove = game.ugly_move(b);
       game.undo();
-      let aCaptured = 'captured' in aMove;
-      let bCaptured = 'captured' in bMove;
       if (aCaptured && bCaptured) {
         return (weights[aMove.captured] - weights[aMove.piece]) - (weights[bMove.captured] - weights[bMove.piece]);
-      } else if (aCaptured) {
+      } else if (aMove.flags.includes('c')) {
         return -1;
-      } else {
+      } else if (bMove.flags.includes('c')) {
         return 1;
+      } else {
+        if (killerMoves[depth].includes(aMove.san)) return -1;
+        if (killerMoves[depth].includes(bMove.san)) return 1;
+        
+        // Use history heuristic for non-captures
+        let historyA = historyTable[aMove.san] || 0;
+        let historyB = historyTable[bMove.san] || 0;
+        return historyB - historyA;
       }
+
     })
     orderedMoves.find((move) => {
     let prittyMove = game.ugly_move(move);
@@ -136,6 +145,8 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
       beta = Math.min(beta, bestChildMoveSum);
     }
     if (alpha >= beta) {
+      updateHistory(prittyMove, depth);
+      updateKillerMoves(prittyMove, depth);
       return true;
     }
     return false;
@@ -176,4 +187,14 @@ function Efunk(move, game, prevSum, isMaxer) {
   return prevSum;
   }
 }
+function updateHistory(move, depth) {
+  if (!historyTable[move.san]) historyTable[move.san] = 0;
+  historyTable[move.san] += 2 ** depth; // Increment history value based on depth
+}
 
+function updateKillerMoves(move, depth) {
+  if (!killerMoves[depth].includes(move.san)) {
+      killerMoves[depth].push(move.san);
+      if (killerMoves[depth].length > 2) killerMoves[depth].shift(); // Keep only top 2 killer moves
+  }
+}
