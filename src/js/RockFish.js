@@ -85,12 +85,12 @@ const pst_b = {
   k_e: pst_w['k_e'].slice().reverse(),
 };
 const pstSelf = { w: pst_w, b: pst_b };
-function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, isAlpha = true, ) {
+function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, isMaxer = true) {
   if (depth === 0 || moves.length === 0) {
     return [null, sum]
 } else {
     let bestMove;
-    if (isAlpha) {
+    if  (isMaxer) {
     var bestChildMoveSum = -Infinity; 
     } else {
       var bestChildMoveSum = Infinity; 
@@ -117,9 +117,9 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
       }
 
     })
-    orderedMoves.find((move) => {
+    for (let i = 0; i < orderedMoves.length; i++) {
     let prittyMove = game.ugly_move(move);
-    var moveSum = Efunk(prittyMove, game, sum, isAlpha );
+    var moveSum = Efunk(prittyMove, game, sum, isMaxer);
     const newMoves = game.ugly_moves({verbose: true});
     var [childBestMove, childBestMoveSum] = minimax(
       newMoves,
@@ -128,10 +128,10 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
       moveSum,
       alpha,
       beta,
-      !isAlpha, 
+      isMaxer, 
     );
     game.undo();
-    if (isAlpha) {
+    if  (isMaxer) {
       if (childBestMoveSum > bestChildMoveSum) {
         bestMove = move;
         bestChildMoveSum = childBestMoveSum;
@@ -147,10 +147,9 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
     if (alpha >= beta) {
       updateHistory(prittyMove, depth);
       updateKillerMoves(prittyMove, depth);
-      return true;
+      break;
     }
-    return false;
-  })
+  }
   return [bestMove,  bestChildMoveSum]
 }
 }
