@@ -117,9 +117,10 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
       }
 
     })
-    for (let i = 0; i < orderedMoves.length; i++) {
-    let prittyMove = game.ugly_move(move);
-    var moveSum = Efunk(prittyMove, game, sum, isMaxer);
+    for (let i = 0; i < orderedMoves.length; i++)
+      {
+        let prittyMove = game.ugly_move(orderedMoves[i]);
+        var moveSum = Efunk(prittyMove, game, sum, isMaxer);
     const newMoves = game.ugly_moves({verbose: true});
     var [childBestMove, childBestMoveSum] = minimax(
       newMoves,
@@ -133,13 +134,13 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
     game.undo();
     if  (isMaxer) {
       if (childBestMoveSum > bestChildMoveSum) {
-        bestMove = move;
+        bestMove = orderedMoves[i];
         bestChildMoveSum = childBestMoveSum;
       }   
       alpha = Math.max(alpha, childBestMoveSum);
     } else {
       if (childBestMoveSum < bestChildMoveSum) {
-        bestMove = move;
+        bestMove = orderedMoves[i];
         bestChildMoveSum = childBestMoveSum;
       }   
       beta = Math.min(beta, bestChildMoveSum);
