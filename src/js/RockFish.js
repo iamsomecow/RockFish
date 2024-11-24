@@ -88,10 +88,10 @@ const pstSelf = { w: pst_w, b: pst_b };
 function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, isMaxer = true) {
   if (depth === 0 || moves.length === 0) {
     return [null, sum]
-} else {
+  } else {
     let bestMove;
-    if  (isMaxer) {
-    var bestChildMoveSum = -Infinity; 
+    if (isMaxer) {
+      var bestChildMoveSum = -Infinity; 
     } else {
       var bestChildMoveSum = Infinity; 
     }
@@ -129,7 +129,7 @@ function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, is
       moveSum,
       alpha,
       beta,
-      isMaxer, 
+      !isMaxer, 
     );
     game.undo();
     if  (isMaxer) {
