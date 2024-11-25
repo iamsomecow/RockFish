@@ -10,4 +10,6 @@ chess.js
 
 # api
 
-`minimax(chessjs_board, search_depth);`
+`var[bestmove, moveval minimax(chessjs_board, search_depth);`
+`//ignore moveval`
+
