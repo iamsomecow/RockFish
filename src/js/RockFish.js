@@ -1,5 +1,7 @@
-let historyTable = {}; // Initialize a history table
+// heuristics for move ordering (makes alpha-beta pruning)
+let historyTable = {}; 
 let killerMoves = Array(100).fill(null).map(() => []); 
+// pice weights - for evaluating capures   
 const weights = { p: 100, n: 280, b: 320, r: 479, q: 929, k: 60000, k_e: 60000 };
 const pst_w = {
   p: [
@@ -63,7 +65,7 @@ const pst_w = {
     [17, 30, -3, -14, 6, -1, 40, 18],
   ],
 
-  // Endgame King Table
+  // Endgame King Table - not used
   k_e: [
     [-50, -40, -30, -20, -20, -30, -40, -50],
     [-30, -20, -10,  0,   0,  -10, -20, -30],
@@ -75,6 +77,7 @@ const pst_w = {
     [-50, -30, -30, -30, -30, -30, -30, -50],
   ],
 };
+// black pices tables are refetions of wight this gets the refecetions 
 const pst_b = {
   p: pst_w['p'].slice().reverse(),
   n: pst_w['n'].slice().reverse(),
@@ -84,78 +87,122 @@ const pst_b = {
   k: pst_w['k'].slice().reverse(),
   k_e: pst_w['k_e'].slice().reverse(),
 };
+// container for tables
 const pstSelf = { w: pst_w, b: pst_b };
+// minimax
+// minimax works by returning the best move from the previous layer then if it is the opponents turn choses the worst best move the bot can make if it's the bots move it will the best worst move the opponent can make.
+// alpha beta improves the speed of minimax by pruning nodes.
+// an optimized alpha-beta can decrease the number of nodes searched by 90 percent.
+// moves = current moves,
+// game = chess.js game,
+// sum = previus move sum, 
+// alpha = alpha for alpha beta pruning,
+// beta = beta for alpha beta pruning,
+// isMaxer = bool to check if it is the maximizers turn - in this situtation the maximiser is the bot.
 function minimax(moves, game, depth, sum, alpha = -Infinity, beta = Infinity, isMaxer = true) {
   if (depth === 0 || moves.length === 0) {
+    // gets called when node is terminal - out of serch depth or no children
     return [null, sum]
   } else {
+    // the best move from this iliteration
     let bestMove;
+    // sets bestChildMoveSum to Infinity or - Infinity depending on isMaxer
     if (isMaxer) {
       var bestChildMoveSum = -Infinity; 
     } else {
       var bestChildMoveSum = Infinity; 
     }
+    // move sorting to make alpha beta more effecent 
     let orderedMoves = moves.sort((a, b) => {
+      // gets aMove and bMove - 2 differnt moves from the moves array of moves
+      // the game.undo() need to be there because game.ugly_move() 
+      // makes a move and a move could make b move inpossible witch causes an error
       var aMove = game.ugly_move(a);
       game.undo();
       var bMove = game.ugly_move(b);
       game.undo();
+      // heuristics 
       if (aMove.flags.includes('c') && bMove.flags.includes('c')) {
+        // both capture heuristic
         return (weights[aMove.captured] - weights[aMove.piece]) - (weights[bMove.captured] - weights[bMove.piece]);
       } else if (aMove.flags.includes('c')) {
+        // capure move go higher then non capures
         return -1;
       } else if (bMove.flags.includes('c')) {
         return 1;
       } else {
+        // killer move heuristic - puts moves that caused alpha beta most before first
         if (killerMoves[depth].includes(aMove.san)) return -1;
-        if (killerMoves[depth].includes(bMove.san)) return 1;
-        
-        // Use history heuristic for non-captures
+        if (killerMoves[depth].includes(bMove.san)) return 1;        
+        // history heuristic - puts other moves that caused alpha beta cuttoff
         let historyA = historyTable[aMove.san] || 0;
         let historyB = historyTable[bMove.san] || 0;
         return historyB - historyA;
       }
-
     })
-    for (let i = 0; i < orderedMoves.length; i++)
-      {
-        let prittyMove = game.ugly_move(orderedMoves[i]);
-        var moveSum = Efunk(prittyMove, game, sum, isMaxer);
-    const newMoves = game.ugly_moves({verbose: true});
-    var [childBestMove, childBestMoveSum] = minimax(
-      newMoves,
-      game,
-      depth - 1,
-      moveSum,
-      alpha,
-      beta,
-      !isMaxer, 
-    );
-    game.undo();
-    if  (isMaxer) {
-      if (childBestMoveSum > bestChildMoveSum) {
-        bestMove = orderedMoves[i];
-        bestChildMoveSum = childBestMoveSum;
-      }   
-      alpha = Math.max(alpha, childBestMoveSum);
-    } else {
-      if (childBestMoveSum < bestChildMoveSum) {
-        bestMove = orderedMoves[i];
-        bestChildMoveSum = childBestMoveSum;
-      }   
-      beta = Math.min(beta, bestChildMoveSum);
+    // loop though orderded moves and set bestMove to the best move
+    for (let i = 0; i < orderedMoves.length; i++){
+      // changes move format and makes move
+      let prittyMove = game.ugly_move(orderedMoves[i]);
+      // evaluates move
+      var moveSum = Efunk(prittyMove, game, sum, isMaxer);
+      // gets all of the moves possible after making the move - also called child moves.
+      const newMoves = game.ugly_moves({verbose: true});
+      // calls minimax to get the values of child moves
+      var [childBestMove, childBestMoveSum] = minimax(
+        newMoves,
+        game,
+        depth - 1,
+        moveSum,
+        alpha,
+        beta,
+        // changes iSmaxer to be the opesert of it self
+        !isMaxer, 
+      );
+      game.undo();
+      // if it is maxermisers turn set alpha to the higher of alpha and bestchildmovesum and
+      // the value of the best child moves & if the childs best move sum is greater then the 
+      // siblings of the current moves best child move sum set best childmove sum to the current 
+      // moves best childs sum and set bestmove to the current move 
+      //
+      // if it is not maxermisers turn set beta to the lower of alpha and bestchildmovesum
+      // the value of the best child moves & if the childs best move sum is lower then the 
+      // siblings of the current moves best child move sum set best childmove sum to the current 
+      // moves best childs sum and set bestmove to the current move
+      if  (isMaxer) {
+        if (childBestMoveSum > bestChildMoveSum) {
+          bestMove = orderedMoves[i];
+          bestChildMoveSum = childBestMoveSum;
+        }   
+        alpha = Math.max(alpha, childBestMoveSum);
+      } else {
+        if (childBestMoveSum < bestChildMoveSum) {
+          bestMove = orderedMoves[i];
+          bestChildMoveSum = childBestMoveSum;
+        }   
+        beta = Math.min(beta, bestChildMoveSum);
+      }
+      // alpha beta cuttof point if alpha is greater 
+      // or equal to beta stop evaluating moves and it dose this becasue of the break
+      if (alpha >= beta) {
+        updateHistory(prittyMove, depth);
+        updateKillerMoves(prittyMove, depth);
+        break; 
+      }
     }
-    if (alpha >= beta) {
-      updateHistory(prittyMove, depth);
-      updateKillerMoves(prittyMove, depth);
-      break;
-    }
+    // return best move and bestchildmovesum
+    return [bestMove,  bestChildMoveSum]
   }
-  return [bestMove,  bestChildMoveSum]
 }
-}
+// evaluation funuction
+// move = move to evaluate
+// game = the game without the move made - for checkmate detechion
+// prevSum = the sum of the previus move
+// isMaxer = makes it return negative if openents move possitive if bots move
 function Efunk(move, game, prevSum, isMaxer) {
+  // make move
   game.move(move);  
+  // checkmate eval
   if (game.in_checkmate()) {
     if (isMaxer) {
       return Infinity;
@@ -163,27 +210,34 @@ function Efunk(move, game, prevSum, isMaxer) {
       return -Infinity;
     }
   } else {
+  // gets move from to different format so it can query the pices square tables
   const from = [
     8 - parseInt(move.from[1]),
     move.from.charCodeAt(0) - 'a'.charCodeAt(0),
   ];
+  // gets move destination to different format so it can query the pices square tables
   const to = [
     8 - parseInt(move.to[1]),
     move.to.charCodeAt(0) - 'a'.charCodeAt(0),
   ];
+
   if (isMaxer) {
+    // if move is a capure add capurd pices value to move sum
     if ('captured' in move) {
       prevSum += weights[move.captured]; 
     }
+    // subtract the from becasue the picse has moved and add the destination
     prevSum -= pstSelf[move.color][move.piece][from[0]][from[1]];
     prevSum += pstSelf[move.color][move.piece][to[0]][to[1]]; 
   } else {
+    // dose the same thing but for oponents moves
     if ('captured' in move) {
       prevSum -= weights[move.captured]; 
     }
     prevSum += pstSelf[move.color][move.piece][from[0]][from[1]];
     prevSum -= pstSelf[move.color][move.piece][to[0]][to[1]]; 
   }
+  // returns the previus move sum plus the current move sum
   return prevSum;
   }
 }
